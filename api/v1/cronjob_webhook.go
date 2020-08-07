@@ -18,8 +18,10 @@ package v1
 
 import (
 	"github.com/robfig/cron"
+	apierrors "k8s.io/apimachinery/pkg/api/errors"
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/runtime/schema"
+	validationutils "k8s.io/apimachinery/pkg/util/validation"
 	"k8s.io/apimachinery/pkg/util/validation/field"
 	ctrl "sigs.k8s.io/controller-runtime"
 	logf "sigs.k8s.io/controller-runtime/pkg/runtime/log"
@@ -29,6 +31,7 @@ import (
 // log is for logging in this package.
 var cronjoblog = logf.Log.WithName("cronjob-resource")
 
+// SetupWebhookWithManager ...
 func (r *CronJob) SetupWebhookWithManager(mgr ctrl.Manager) error {
 	return ctrl.NewWebhookManagedBy(mgr).
 		For(r).
